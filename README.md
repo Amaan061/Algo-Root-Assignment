@@ -88,134 +88,137 @@ The frontend application will be available at `http://localhost:5173`.
 
 ## API Documentation
 
-The backend provides the following RESTful endpoints:
+### Base URL
+```
+https://your-render-app-name.onrender.com
+```
 
-### GET /tasks
-Retrieve all tasks.
+### Endpoints
 
-**Response:**
+#### 1. Get All Tasks
+- **Method**: GET
+- **URL**: `/tasks`
+- **Response**: List of all tasks
 ```json
 [
   {
     "id": 1,
-    "title": "Task Title",
-    "description": "Task Description",
+    "title": "Complete Project Documentation",
+    "description": "Update README files and add API documentation",
     "completed": false
   }
 ]
 ```
 
-### POST /tasks
-Create a new task.
-
-**Request Body:**
+#### 2. Create New Task
+- **Method**: POST
+- **URL**: `/tasks`
+- **Headers**: 
+  ```
+  Content-Type: application/json
+  ```
+- **Request Body**:
 ```json
 {
-  "title": "Task Title",
-  "description": "Task Description"
+  "title": "Complete Project Documentation",
+  "description": "Update README files and add API documentation"
+}
+```
+- **Response**: Created task object
+
+#### 3. Get Single Task
+- **Method**: GET
+- **URL**: `/tasks/:id`
+- **Response**: Single task object
+```json
+{
+  "id": 1,
+  "title": "Complete Project Documentation",
+  "description": "Update README files and add API documentation",
+  "completed": false
 }
 ```
 
-### PUT /tasks/:id
-Update an existing task.
-
-**Request Body:**
+#### 4. Update Task
+- **Method**: PUT
+- **URL**: `/tasks/:id`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  ```
+- **Request Body**:
 ```json
 {
-  "title": "Updated Title",
-  "description": "Updated Description",
+  "title": "Updated Task Title",
+  "description": "Updated task description",
   "completed": true
 }
 ```
+- **Response**: Updated task object
 
-### DELETE /tasks/:id
-Delete a task.
+#### 5. Delete Task
+- **Method**: DELETE
+- **URL**: `/tasks/:id`
+- **Response**: Success message
 
-## Testing the API
+### Testing with Postman
 
-### Using Postman
-Import the following collection into Postman:
+1. **Import Postman Collection**
+   - Download the Postman collection from: [Postman Collection Link]
+   - Import it into your Postman workspace
+
+2. **Set Up Environment**
+   - Create a new environment in Postman
+   - Add variable:
+     - Name: `baseUrl`
+     - Value: `https://your-render-app-name.onrender.com`
+
+3. **Test Data**
+   Use these sample tasks for testing:
+   ```json
+   // Task 1
+   {
+     "title": "Complete Project Documentation",
+     "description": "Update README files and add API documentation"
+   }
+
+   // Task 2
+   {
+     "title": "Implement User Authentication",
+     "description": "Add JWT-based authentication system"
+   }
+
+   // Task 3
+   {
+     "title": "Design Database Schema",
+     "description": "Create ERD and implement database migrations"
+   }
+   ```
+
+4. **Testing Steps**
+   1. Create tasks using POST endpoint
+   2. Get all tasks using GET endpoint
+   3. Get a single task using GET with ID
+   4. Update a task using PUT endpoint
+   5. Delete a task using DELETE endpoint
+   6. Verify deletion using GET all tasks
+
+### Error Responses
 ```json
+// 404 Not Found
 {
-  "info": {
-    "name": "Task Management API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Get All Tasks",
-      "request": {
-        "method": "GET",
-        "url": "http://localhost:5000/tasks"
-      }
-    },
-    {
-      "name": "Create Task",
-      "request": {
-        "method": "POST",
-        "url": "http://localhost:5000/tasks",
-        "body": {
-          "mode": "raw",
-          "raw": "{\"title\":\"Test Task\",\"description\":\"Test Description\"}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
-      }
-    },
-    {
-      "name": "Update Task",
-      "request": {
-        "method": "PUT",
-        "url": "http://localhost:5000/tasks/1",
-        "body": {
-          "mode": "raw",
-          "raw": "{\"title\":\"Updated Task\",\"description\":\"Updated Description\",\"completed\":true}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
-      }
-    },
-    {
-      "name": "Delete Task",
-      "request": {
-        "method": "DELETE",
-        "url": "http://localhost:5000/tasks/1"
-      }
-    }
-  ]
+  "error": "Task not found"
 }
-```
 
-### Using cURL
+// 400 Bad Request
+{
+  "error": "Title is required"
+}
 
-1. Get all tasks:
-```bash
-curl http://localhost:5000/tasks
-```
-
-2. Create a new task:
-```bash
-curl -X POST http://localhost:5000/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"New Task","description":"Task Description"}'
-```
-
-3. Update a task:
-```bash
-curl -X PUT http://localhost:5000/tasks/1 \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Updated Task","description":"Updated Description","completed":true}'
-```
-
-4. Delete a task:
-```bash
-curl -X DELETE http://localhost:5000/tasks/1
+// 500 Server Error
+{
+  "error": "Something went wrong!"
+}
 ```
 
 ## Screenshots
