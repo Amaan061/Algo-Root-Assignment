@@ -223,14 +223,3 @@ curl -X DELETE http://localhost:5000/tasks/1
 ### Main Task List View
 ![Main Task List](screenshots/main-task-list.png)
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
