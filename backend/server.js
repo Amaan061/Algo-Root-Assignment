@@ -9,6 +9,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Home route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to Task Management API',
+    endpoints: {
+      tasks: '/tasks',
+      documentation: 'https://github.com/Amaan061/Algo-Root-Assignment'
+    }
+  });
+});
+
 // Routes
 app.use('/tasks', taskRoutes);
 
